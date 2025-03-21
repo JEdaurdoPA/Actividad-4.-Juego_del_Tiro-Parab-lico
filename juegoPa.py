@@ -10,7 +10,6 @@ Exercises
 
 from random import randrange
 from turtle import *
-
 from freegames import vector
 
 ball = vector(-200, -200)
@@ -23,8 +22,9 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        # AUMENTA VELOCIDAD DEL PROYECTIL (antes era /25)
+        speed.x = (x + 200) / 15
+        speed.y = (y + 200) / 15
 
 
 def inside(xy):
@@ -49,25 +49,24 @@ def draw():
 
 def move():
     """Move ball and targets."""
-    if randrange(40) == 0:
+    if randrange(30) == 0:  # MÁS FRECUENTE (antes era 40)
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
     for target in targets:
-        target.x -= 0.5
+        target.x -= 1.5  # AUMENTA VELOCIDAD DE LOS TARGETS (antes era 0.5)
         if target.x < -200:
-            target.x=200
+            target.x = 200
             target.y = randrange(-150, 150)
-            
 
     if inside(ball):
-        speed.y -= 0.35
+        speed.y -= 0.7  # AUMENTA EFECTO DE LA GRAVEDAD (antes era 0.35)
         ball.move(speed)
     else:
         ball.x, ball.y = -200, -200
         speed.x, speed.y = 0, 0
-     
+
     dupe = targets.copy()
     targets.clear()
 
@@ -76,9 +75,7 @@ def move():
             targets.append(target)
 
     draw()
-
- 
-    ontimer(move, 50)
+    ontimer(move, 30)  # MÁS ACTUALIZACIONES POR SEGUNDO (antes era 50)
 
 
 setup(420, 420, 370, 0)

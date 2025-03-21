@@ -56,11 +56,18 @@ def move():
 
     for target in targets:
         target.x -= 0.5
+        if target.x < -200:
+            target.x=200
+            target.y = randrange(-150, 150)
+            
 
     if inside(ball):
         speed.y -= 0.35
         ball.move(speed)
-
+    else:
+        ball.x, ball.y = -200, -200
+        speed.x, speed.y = 0, 0
+     
     dupe = targets.copy()
     targets.clear()
 
@@ -70,10 +77,7 @@ def move():
 
     draw()
 
-    for target in targets:
-        if not inside(target):
-            return
-
+ 
     ontimer(move, 50)
 
 
